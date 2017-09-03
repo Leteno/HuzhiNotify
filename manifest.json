@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  
+  "name": "Getting started example",
+  "description": "helloworld",
+  "version": "0.0.1",
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Click here!"
+  },
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "https://www.google.com/*",
+    "https://api.zhihu.com/*",
+    "https://www.zhihu.com/*"
+  ],
+  "web_accessible_resources": [
+    "Liu.png"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   
-  "name": "Getting started example",
-  "description": "helloworld",
+  "name": "HuzhiNotify",
+  "description": "get the latest news from specific topic",
   "version": "0.0.1",
 
   "background": {
@@ -11,9 +11,9 @@
   },
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "Liu.png",
     "default_popup": "popup.html",
-    "default_title": "Click here!"
+    "default_title": "Master Liu"
   },
   "permissions": [
     "activeTab",

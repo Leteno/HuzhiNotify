@@ -56,20 +56,23 @@ var showNotification = function(message, url) {
 };
 
 // time internal controller part
-var query = function() {
-    console.log("querying " + query.counter);
-
-    guestApi.request("topics/19554300/activities_new", function(data) {
+var query = function(operation) {
+    guestApi.request(operation, function(data) {
             storeAndShowTheDifference(data);
     });
 
     query.counter = query.counter + 1;
-    if (query.counter > 10) {
+    if (query.counter > 10000) {
+        console.log("query times reach at 10000, forced closed");
         clearInterval(queryInterval);
     }
 };
 query.counter = 0;
-var queryCycle = 6000;
-var queryInterval = setInterval(query, queryCycle);
+var queryInterval;
 
 // main() part
+var reset = function(queryCycle, topicId) {
+    if (queryInterval) clearInterval(queryInterval);
+    var operation = "topics/" + topicId + "/activities_new";
+    queryInterval = setInterval(query(operation), queryCycle);
+}

@@ -1,9 +1,23 @@
 
 <html>
-<header>
-  <title> hello world </title>
-</header>
+<head>
+  <script type="text/javascript" src="popup.js"></script>
+  <link rel="stylesheet" href="popup.css"/>
+</head>
 <body>
-  <h1> hello world, google </h1>
+  <h1> Hello, New World </h1>
+  <div id='container'>
+    <table>
+      <tr>
+        <td>topicId:</td>
+        <td><input type="number" id="topicId" value="19554300" placeholder="topic id"/></td>
+      </tr>
+      <tr>
+        <td>queryInterval(ms):</td>
+        <td><input type="number" id="queryInterval" value="6000" placeholder="query interval" /></td>
+      </tr>
+    </table>
+    <button id='startGame'>start game</button>
+  </div>
 </body>
 </html>

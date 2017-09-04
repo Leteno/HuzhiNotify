@@ -28,14 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
         itemList.forEach(function(item, index, array) {
                 var viewholder = document.createElement('div');
                 viewholder.className = 'list-item';
-                var title = document.createElement('label');
+                var title = document.createElement('p');
                 title.className = 'list-item-title';
                 title.innerHTML = item.title;
+                var divContainer0 = document.createElement('div');
+                divContainer0.className = 'list-item-argument';
+                divContainer0.appendChild(title);
                 var icon = document.createElement('img');
                 icon.className = 'list-item-icon';
                 icon.src = 'Liu.png';
-                viewholder.appendChild(title);
-                viewholder.appendChild(icon);
+                var divContainer1 = document.createElement('div');
+                divContainer1.className = 'list-item-argument';
+                divContainer1.appendChild(icon);
+                viewholder.appendChild(divContainer1);
+                viewholder.appendChild(divContainer0);
                 viewholder.addEventListener('click', function() {
                         chrome.tabs.create({url: item.url});
                         var index = itemList.indexOf(item);

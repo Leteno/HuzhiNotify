@@ -14,26 +14,37 @@ var ZhihuApi = function(authorization) {
 var guestApi = new ZhihuApi("Bearer gt2.0AAAAAASwwkALma7U0cKAAAAAAAxNVQJgAgASocVLFbvvMC0-sTzVTmCVwVJICg==");
 
 // data store part
-var storage = new Map();
+var cached = new Map();
+var listItemStorage = new Array();
 var storeAndShowTheDifference = function(json) {
     var obj = JSON.parse(json);
     for (i = 0; i < obj.data.length; i++) {
         var data = obj.data[i];
-        if (storage.get(data.id)) {
+        if (cached.get(data.id)) {
             continue;
         }
-        storage.set(data.id, data.title);
+        cached.set(data.id, data.title);
         if (data.follower_count > 1000) {
             // FROM: https://api.zhihu.com/questions/59977836
             // TO: https://www.zhihu.com/question/59977836
-            var url = data.url.match("[0-9]+");
+            var item = {};
             var prefix = 'https://www.zhihu.com/question/';
-            showNotification(data.title, prefix + url[0]);
+            item.url = prefix + data.url.match("[0-9]+")[0];
+            item.title = data.title;
+            listItemStorage.splice(0, 0, item);
+            updateBadge();
         }
     }
 };
 
-// page show part
+// badge stuff 
+function updateBadge() {
+    var text = (listItemStorage.length <= 0) ? ""
+        : "" + listItemStorage.length;
+    chrome.browserAction.setBadgeText({text: text});
+}
+
+// notification part
 Notification.requestPermission();
 var notificationId = "1333";
 var imageOfLiu = "Liu.png";
@@ -52,7 +63,6 @@ var showNotification = function(message, url) {
         iconUrl: imageOfLiu,
     };
     chrome.notifications.create(url, options, function(notificationId){});
-
 };
 
 // time internal controller part
@@ -81,4 +91,5 @@ var reset = function(queryCycle, topicId) {
     instance.topicId = topicId;
     instance.queryCycle = queryCycle;
     queryInterval = setInterval(query(operation), queryCycle);
-}
+};
+reset(instance.queryCycle, instance.topicId);

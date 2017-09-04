@@ -1,9 +1,12 @@
 
+var backgroundPage = chrome.extension.getBackgroundPage();
 document.addEventListener('DOMContentLoaded', function() {
+        var topicId = document.getElementById("topicId");
+        var queryInterval = document.getElementById("queryInterval");
+        topicId.value = backgroundPage.instance.topicId;
+        queryInterval.value = backgroundPage.instance.queryCycle;
         document.getElementById('startGame').addEventListener('click', function() {
-                var topicId = document.getElementById("topicId").value;
-                var queryInterval = document.getElementById("queryInterval").value;
-                chrome.extension.getBackgroundPage().reset(queryInterval, topicId);
+                backgroundPage.reset(queryInterval.value, topicId.value);
             });
     }
 );

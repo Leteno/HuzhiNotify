@@ -71,8 +71,14 @@ query.counter = 0;
 var queryInterval;
 
 // main() part
+
+var instance = {};
+instance.queryCycle = 6000;
+instance.topicId = 19554300;
 var reset = function(queryCycle, topicId) {
     if (queryInterval) clearInterval(queryInterval);
     var operation = "topics/" + topicId + "/activities_new";
+    instance.topicId = topicId;
+    instance.queryCycle = queryCycle;
     queryInterval = setInterval(query(operation), queryCycle);
 }
